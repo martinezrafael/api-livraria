@@ -3,7 +3,9 @@ import http from "http";
 const PORT = 3000;
 
 const rotas = {
-  "/": "Curso de Nodejs",
+  "/": "Curso de Express API",
+  "/livros": "Entrei na rota livros",
+  "/autores": "Entrei na rota autores",
 };
 
 const server = http.createServer((req, res) => {
