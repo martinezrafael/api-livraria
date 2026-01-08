@@ -4,7 +4,7 @@ const PORT = 3000;
 
 const app = express();
 
-app.use(express.json()); //middleware
+app.use(express.json());
 
 const livros = [
   {
@@ -17,12 +17,23 @@ const livros = [
   },
 ];
 
+function buscaLivro(id) {
+  return livros.findIndex((livro) => {
+    return livro.id === Number(id);
+  });
+}
+
 app.get("/", (req, res) => {
   res.status(200).send("Curso de Node.js");
 });
 
 app.get("/livros", (req, res) => {
   res.status(200).json(livros);
+});
+
+app.get("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  res.status(200).json(livros[index]);
 });
 
 app.post("/livros", (req, res) => {
