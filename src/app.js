@@ -12,8 +12,6 @@ conexao.once("open", () => {
   console.log("Conexão com o banco feita com sucesso!");
 });
 
-const PORT = 3000;
-
 const app = express();
 routes(app);
 
