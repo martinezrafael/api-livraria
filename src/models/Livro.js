@@ -12,7 +12,11 @@ const livroSchema = new mongoose.Schema(
       required: [true, "O nome da editora é obrigatório"],
     },
     preco: { type: Number },
-    paginas: { type: Number },
+    paginas: {
+      type: Number,
+      min: 10,
+      max: 5000,
+    },
     autor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "autores",
