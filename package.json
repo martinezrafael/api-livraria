@@ -5,9 +5,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
-  "keywords": ["livraria", "api"],
+  "keywords": [
+    "livraria",
+    "api"
+  ],
   "author": "Rafael Molina Martinez",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.14"
+  }
 }
