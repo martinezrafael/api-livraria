@@ -1,11 +1,6 @@
 import livro from "../models/Livro.js";
 
 class LivroController {
-  static async listarLivros(req, res) {
-    const listaLivros = await livro.find({});
-    res.status(200).json(listaLivros);
-  }
-
   static async cadastrarLivro(req, res) {
     try {
       const novoLivro = await livro.create(req.body);
@@ -16,6 +11,54 @@ class LivroController {
       res
         .status(500)
         .json({ message: `${error.message} - falha ao cadastrar livro.` });
+    }
+  }
+
+  static async listarLivros(req, res) {
+    try {
+      const listaLivros = await livro.find({});
+      res.status(200).json(listaLivros);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: `${error.message} - falha ao buscar livros.` });
+    }
+  }
+
+  static async listarLivroPorId(req, res) {
+    try {
+      const id = req.params.id;
+      const livroEncontrado = await livro.findById(id);
+      res.status(200).json(livroEncontrado);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: `${error.message} - falha ao buscar o livro.` });
+    }
+  }
+
+  static async atualizarLivroPorId(req, res) {
+    try {
+      const id = req.params.id;
+      const payload = req.body;
+      await livro.findByIdAndUpdate(id, payload);
+      res.status(200).json({ message: "Livro atualizado com sucesso." });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: `${error.message} - falha ao atualizar o livro.` });
+    }
+  }
+
+  static async deletarLivroPorId(req, res) {
+    try {
+      const id = req.params.id;
+      await livro.findByIdAndDelete(id);
+      res.status(200).json({ message: "Livro deletado com sucesso." });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: `${error.message} - falha ao deletar o livro.` });
     }
   }
 }

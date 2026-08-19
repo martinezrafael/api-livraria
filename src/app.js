@@ -52,22 +52,22 @@ routes(app);
   res.status(200).json(listaLivros);
 });*/
 
-app.get("/livros/:id", (req, res) => {
+/*app.get("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   res.status(200).json(livros[index]);
-});
+});*/
 
-app.put("/livros/:id", (req, res) => {
+/*app.put("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   livros[index].titulo = req.body.titulo;
   res.status(200).json(livros);
-});
+});*/
 
-app.delete("/livros/:id", (req, res) => {
+/*app.delete("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   livros.splice(index, 1)
   res.status(200).send("Livro Deletado.")
-});
+});*/
 
 /*app.post("/livros", (req, res) => {
   livros.push(req.body);
