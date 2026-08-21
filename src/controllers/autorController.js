@@ -8,10 +8,10 @@ class AutorController {
       res
         .status(201)
         .send(autorResultado.toJSON());
-    } catch (error) {
+    } catch (erro) {
       res
         .status(500)
-        .json({ message: `${error.message} - falha ao cadastrar autor.` });
+        .send({ message: `${erro.message} - falha ao cadastrar autor.` });
     }
   }
 
@@ -22,44 +22,44 @@ class AutorController {
     } catch (erro) {
       res
         .status(500)
-        .json({ message: "Erro interno no servidor." });
+        .send({ message: "Erro interno no servidor." });
     }
   }
 
-  static async listarAutorPorId(req, res) {
+  static listarAutorPorId = async (req, res) => {
     try {
       const id = req.params.id;
       const autorEncontrado = await autor.findById(id);
       res.status(200).json(autorEncontrado);
-    } catch (error) {
+    } catch (erro) {
       res
-        .status(500)
-        .json({ message: `${error.message} - falha ao buscar o autor.` });
+        .status(404)
+        .send({ message: `${erro.message} - id do autor não localizado.` });
     }
   }
 
-  static async atualizarAutorPorId(req, res) {
+  static atualizarAutorPorId = async (req, res) => {
     try {
       const id = req.params.id;
       const payload = req.body;
       await autor.findByIdAndUpdate(id, payload);
-      res.status(200).json({ message: "Autor atualizado com sucesso." });
-    } catch (error) {
+      res.status(200).send({ message: "Autor atualizado com sucesso." });
+    } catch (erro) {
       res
         .status(500)
-        .json({ message: `${error.message} - falha ao atualizar o autor.` });
+        .send({ message: erro.message });
     }
   }
 
-  static async deletarAutorPorId(req, res) {
+  static deletarAutorPorId = async (req, res) => {
     try {
       const id = req.params.id;
       await autor.findByIdAndDelete(id);
       res.status(200).json({ message: "Autor deletado com sucesso." });
-    } catch (error) {
+    } catch (erro) {
       res
         .status(500)
-        .json({ message: `${error.message} - falha ao deletar o autor.` });
+        .send({ message: erro.message});
     }
   }
 }
