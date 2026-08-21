@@ -1,12 +1,13 @@
 import { autor } from "../models/Autor.js";
 
 class AutorController {
-  static async cadastrarAutor(req, res) {
+  static cadastrarAutor = async (req, res) => {
     try {
-      const novoAutor = await autor.create(req.body);
+      let novoAutor = new autor(req.body);
+      const autorResultado = await novoAutor.save();
       res
         .status(201)
-        .json({ message: "Criado com sucesso.", autor: novoAutor });
+        .send(autorResultado.toJSON());
     } catch (error) {
       res
         .status(500)
@@ -14,14 +15,14 @@ class AutorController {
     }
   }
 
-  static async listarAutores(req, res) {
+  static listarAutores = async (req, res) => {
     try {
-      const listaAutores = await autor.find({});
-      res.status(200).json(listaAutores);
-    } catch (error) {
+      const autoresResultado = await autor.find();
+      res.status(200).json(autoresResultado);
+    } catch (erro) {
       res
         .status(500)
-        .json({ message: `${error.message} - falha ao buscar autores.` });
+        .json({ message: "Erro interno no servidor." });
     }
   }
 
