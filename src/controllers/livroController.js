@@ -1,9 +1,9 @@
-import livro from "../models/Livro.js";
+import Livro from "../models/Livro.js";
 
 class LivroController {
   static cadastrarLivro = async (req, res, next) => {
     try {
-      let livro = new livro(req.body);
+      let livro = new Livro(req.body);
       const livroResultado = await livro.save();
       res.status(201).json(livroResultado.toJSON());
     } catch (erro) {
@@ -13,7 +13,7 @@ class LivroController {
 
   static listarLivros = async (req, res, next) => {
     try {
-      const livrosResultado = await livro.find().populate("autor").exec();
+      const livrosResultado = await Livro.find().populate("autor").exec();
       res.status(200).json(livrosResultado);
     } catch (erro) {
       next(erro);
@@ -23,7 +23,7 @@ class LivroController {
   static listarLivroPorId = async (req, res, next) => {
     try {
       const id = req.params.id;
-      const livroResultado = await livro
+      const livroResultado = await Livro
         .findById(id)
         .populate("autor", "nome")
         .exec();
@@ -42,7 +42,7 @@ class LivroController {
   static atualizarLivroPorId = async (req, res, next) => {
     try {
       const id = req.params.id;
-      await livro.findByIdAndUpdate(id, { $set: req.body });
+      await Livro.findByIdAndUpdate(id, { $set: req.body });
       res.status(200).json({ message: "Livro atualizado com sucesso." });
     } catch (erro) {
       next(erro);
@@ -52,7 +52,7 @@ class LivroController {
   static deletarLivroPorId = async (req, res, next) => {
     try {
       const id = req.params.id;
-      await livro.findByIdAndDelete(id);
+      await Livro.findByIdAndDelete(id);
       res.status(200).json({ message: "Livro deletado com sucesso." });
     } catch (erro) {
       next(erro);
@@ -62,7 +62,7 @@ class LivroController {
   static listarLivrosPorEditora = async (req, res, next) => {
     const editora = req.query.editora;
     try {
-      const livrosPorEditora = await livro.find({ editora: editora });
+      const livrosPorEditora = await Livro.find({ editora: editora });
       res.status(200).json(livrosPorEditora);
     } catch (erro) {
       next(erro);
