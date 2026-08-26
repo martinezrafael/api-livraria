@@ -1,11 +1,12 @@
 import express from 'express';
 import LivroController from '../controllers/livroController.js';
+import paginar from '../middlewares/paginar.js';
 
 const routes = express.Router();
 
 routes.post("/livros", LivroController.cadastrarLivro);
-routes.get("/livros", LivroController.listarLivros);
-routes.get("/livros/busca", LivroController.listarLivrosPorFiltro);
+routes.get("/livros", LivroController.listarLivros, paginar);
+routes.get("/livros/busca", LivroController.listarLivrosPorFiltro, paginar);
 routes.get("/livros/:id", LivroController.listarLivroPorId);
 routes.put("/livros/:id", LivroController.atualizarLivroPorId);
 routes.delete("/livros/:id", LivroController.deletarLivroPorId);
