@@ -15,7 +15,9 @@ class LivroController {
   static listarLivros = async (req, res, next) => {
     try {
       const buscaLivros = Livro.find();
+
       req.resultado = buscaLivros;
+
       next();
     } catch (erro) {
       next(erro);
@@ -25,6 +27,7 @@ class LivroController {
   static listarLivroPorId = async (req, res, next) => {
     try {
       const id = req.params.id;
+
       const livroResultado = await Livro.findById(id)
         .populate("autor", "nome")
         .exec();
@@ -34,6 +37,7 @@ class LivroController {
       } else {
         next(new NaoEncontrado("Id do livro não localizado"));
       }
+
     } catch (erro) {
       next(erro);
     }
@@ -77,8 +81,10 @@ class LivroController {
 
       if (busca !== null) {
         const livrosResultado = Livro.find(busca).populate("autor");
-        next();
+
         req.resultado = livrosResultado;
+        
+        next();
       } else {
         res.status(200).send([]);
       }
